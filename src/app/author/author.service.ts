@@ -6,7 +6,7 @@ import { Author } from './model/Author';
 import { AuthorPage } from './model/AuthorPage';
 
 @Injectable({
-providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthorService {
 
@@ -19,6 +19,7 @@ export class AuthorService {
     }
 
     saveAuthor(author: Author): Observable<void> {
+
         let url = 'http://localhost:8080/author';
         if (author.id != null) url += '/'+author.id;
 
@@ -28,4 +29,9 @@ export class AuthorService {
     deleteAuthor(idAuthor : number): Observable<void> {
         return this.http.delete<void>('http://localhost:8080/author/'+idAuthor);
     }    
+
+    getAllAuthors(): Observable<Author[]> {
+        return this.http.get<Author[]>('http://localhost:8080/author');
+    }
+
 }

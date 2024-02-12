@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from 'src/app/core/core.module';
 import { CategoryModule } from 'src/app/category/category.module';
 import { AuthorModule } from 'src/app/author/author.module';
+import { GameModule } from 'src/app/game/game.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AuthorModule } from 'src/app/author/author.module';
     CoreModule,
     CategoryModule,
     BrowserAnimationsModule,
-    AuthorModule
+    AuthorModule,
+    GameModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
