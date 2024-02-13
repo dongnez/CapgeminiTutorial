@@ -1,0 +1,65 @@
+<div class="container">
+  <h1>Crear prestamo</h1>
+
+  <form (click)="errorPrestamo = false">
+    <mat-form-field>
+      <mat-label>Juegos</mat-label>
+      <mat-select disableRipple [(ngModel)]="prestamo.game" name="games">
+        <mat-option *ngFor="let game of games" [value]="game">{{
+          game.title
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Clientes</mat-label>
+      <mat-select disableRipple [(ngModel)]="prestamo.client" name="clients">
+        <mat-option *ngFor="let client of clients" [value]="client">{{
+          client.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="dateContainer">
+      <mat-form-field>
+        <mat-label>Fecha Inicio</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerInicio"
+          (dateChange)="onDateChange($event, 'fechaInicio')"
+          [value]="prestamo.fechaInicio | date : 'yyyy-MM-dd'"
+          name="fechaInicio"
+        />
+        <mat-hint>YYYY-MM-DD</mat-hint>
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="pickerInicio"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerInicio></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Fecha Fin</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerFin"
+          (dateChange)="onDateChange($event, 'fechaFin')"
+          [value]="prestamo.fechaFin | date : 'yyyy-MM-dd'"
+          name="fechaFin"
+        />
+        <mat-hint>YYYY-MM-DD</mat-hint>
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="pickerFin"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerFin></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <mat-err style="color: red;" *ngIf="errorPrestamo">Error rellena todos los campos</mat-err>
+  </form>
+
+  <div class="buttons">
+    <button mat-stroked-button (click)="onClose()">Cerrar</button>
+    <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+  </div>
+</div>

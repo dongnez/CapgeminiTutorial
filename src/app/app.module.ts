@@ -1,3 +1,4 @@
+import { PrestamoModule } from './prestamo/prestamo.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,6 +10,7 @@ import { CategoryModule } from 'src/app/category/category.module';
 import { AuthorModule } from 'src/app/author/author.module';
 import { GameModule } from 'src/app/game/game.module';
 import { ClientModule } from 'src/app/client/client.module';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ClientModule } from 'src/app/client/client.module';
     BrowserAnimationsModule,
     AuthorModule,
     GameModule,
-    ClientModule
+    ClientModule,
+    PrestamoModule,
+    MatNativeDateModule, // Asegúrate de importar MatNativeDateModule aquí
   ],
   providers: [],
   bootstrap: [AppComponent]

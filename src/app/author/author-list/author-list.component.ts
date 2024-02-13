@@ -47,7 +47,7 @@ export class AuthorListComponent implements OnInit {
             pageable.pageNumber = event.pageIndex;
         }
 
-        this.authorService.getAuthors(pageable).subscribe(data => {
+        this.authorService.getAuthors(pageable).subscribe((data) => {
             this.dataSource.data = data.content;
             this.pageNumber = data.pageable.pageNumber;
             this.pageSize = data.pageable.pageSize;
