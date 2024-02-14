@@ -1,5 +1,52 @@
 <div class="container">
-  <mat-table [dataSource]="dataSource">
+  <div class="filters">
+    <form class="formFilters">
+
+      <mat-form-field>
+        <mat-label>Clients</mat-label>
+        <mat-select disableRipple [(ngModel)]="filterClient" name="client">
+          <mat-option *ngFor="let client of clients" [value]="client">{{
+            client.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Games</mat-label>
+        <mat-select disableRipple [(ngModel)]="filterGame" name="game">
+          <mat-option *ngFor="let game of games" [value]="game">{{
+            game.title
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Fecha</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerInicio"
+          (dateChange)="onDateChange($event, 'filterDate')"
+          [value]="filterDate | date : 'yyyy-MM-dd'"
+          name="filterDate"
+        />
+        <mat-hint>YYYY-MM-DD</mat-hint>
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="pickerInicio"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerInicio></mat-datepicker>
+      </mat-form-field>
+
+    </form>
+
+    <div class="buttons">
+      <button mat-stroked-button (click)="onCleanFilter()">Limpiar</button>
+      <button mat-stroked-button (click)="onSearch()">Filtrar</button>
+    </div>
+
+  </div>
+
+  <mat-table [dataSource]="prestamosDataSource">
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> Identificador </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
@@ -28,10 +75,11 @@
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" (click)="editPrestamo(element)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="accent" (click)="deletePrestamo(element)">
+        <button
+          mat-icon-button
+          color="accent"
+          (click)="deletePrestamo(element)"
+        >
           <mat-icon>clear</mat-icon>
         </button>
       </mat-cell>
@@ -52,7 +100,7 @@
     showFirstLastButtons
   ></mat-paginator>
 
-  <div class="buttons">
+  <div class="buttons" style="margin-top: 20px">
     <button mat-flat-button color="primary" (click)="createPrestamo()">
       Nuevo prestamo
     </button>

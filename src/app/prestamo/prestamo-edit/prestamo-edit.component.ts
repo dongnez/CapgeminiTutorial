@@ -5,6 +5,7 @@ import { Prestamo } from 'src/app/prestamo/model/Prestamo';
 import { Game } from 'src/app/game/model/Game';
 import { Client } from 'src/app/client/model/Client';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { formatDate } from 'src/helpers/date';
 
 @Component({
   selector: 'app-prestamo-edit',
@@ -12,11 +13,11 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
   styleUrls: ['./prestamo-edit.component.scss'],
 })
 export class PrestamoEditComponent implements OnInit {
-
   prestamo: Prestamo;
   games: Game[];
-  clients:Client[]
+  clients: Client[];
   errorPrestamo = false;
+  errorDb = '';
 
   constructor(
     public dialogRef: MatDialogRef<PrestamoEditComponent>,
@@ -30,41 +31,37 @@ export class PrestamoEditComponent implements OnInit {
     this.clients = this.data.clients;
   }
 
-
   onDateChange(event: MatDatepickerInputEvent<Date>, field: string) {
     if (event.value) {
       // Formatear la fecha seleccionada como una cadena en formato 'YYYY-MM-DD'
-      const formattedDate = this.formatDate(event.value);
-      
+      const formattedDate = formatDate(event.value);
+
       // Asignar la fecha formateada al campo correspondiente en el modelo
       this.prestamo[field] = formattedDate;
     }
   }
 
-  // Función para formatear la fecha en 'YYYY-MM-DD'
-  private formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    
-    // Asegurar que el mes y el día tengan dos dígitos
-    const formattedMonth = month < 10 ? `0${month}` : month;
-    const formattedDay = day < 10 ? `0${day}` : day;
-
-    return `${year}-${formattedMonth}-${formattedDay}`;
-  }
-
   onSave() {
     //Check if all the fields are filled
-    if (!this.prestamo.game || !this.prestamo.client || !this.prestamo.fechaInicio || !this.prestamo.fechaFin) {
+    if (
+      !this.prestamo.game ||
+      !this.prestamo.client ||
+      !this.prestamo.fechaInicio ||
+      !this.prestamo.fechaFin
+    ) {
       this.errorPrestamo = true;
       return;
     }
 
-    this.PrestamoService.savePrestamo(this.data.prestamo).subscribe((result) => {
-      this.dialogRef.close(result);
+    this.PrestamoService.savePrestamo(this.data.prestamo).subscribe(
+      {
+      next: () => {
+        this.dialogRef.close();
+      },
+      error: (error) => {
+        this.errorDb = error.error;
+      },
     });
-
   }
 
   onClose() {
