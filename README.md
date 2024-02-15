@@ -52,6 +52,6 @@ Este proyecto fue creado por [Gnez](https://github.com/dongnez).
 
 ## Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT.
 
 ---
