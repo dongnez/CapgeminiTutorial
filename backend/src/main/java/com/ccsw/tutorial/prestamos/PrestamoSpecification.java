@@ -47,7 +47,6 @@ public class PrestamoSpecification implements Specification<Prestamo> {
                 date = ParseDate.parseStringToDate(criteria.getValue().toString());
                 return builder.greaterThanOrEqualTo(path, date);
             } catch (ParseException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -60,7 +59,6 @@ public class PrestamoSpecification implements Specification<Prestamo> {
                 date = ParseDate.parseStringToDate(criteria.getValue().toString());
                 return builder.lessThanOrEqualTo(path, date);
             } catch (ParseException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -80,14 +78,4 @@ public class PrestamoSpecification implements Specification<Prestamo> {
         return expression;
     }
 
-//CLASES SI NO USAMOS CASTEO
-//    private Path<Date> getPathForFechaInicio(Root<Prestamo> root) {
-//        return root.get("fechaInicio"); // Suponiendo que "fechaInicio" es el nombre del campo de fecha en la entidad
-//                                        // Prestamo
-//    }
-//
-//    private Path<Date> getPathForFechaFin(Root<Prestamo> root) {
-//        return root.get("fechaFin"); // Suponiendo que "fechaInicio" es el nombre del campo de fecha en la entidad
-//                                     // Prestamo
-//    }
 }

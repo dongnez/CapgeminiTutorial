@@ -10,7 +10,8 @@ import { CategoryModule } from 'src/app/category/category.module';
 import { AuthorModule } from 'src/app/author/author.module';
 import { GameModule } from 'src/app/game/game.module';
 import { ClientModule } from 'src/app/client/client.module';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { CustomDateAdapter } from 'src/app/common/CustomDateAdapter';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     PrestamoModule,
     MatNativeDateModule, // Asegúrate de importar MatNativeDateModule aquí
   ],
-  providers: [],
+  providers: [
+    { provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: { parse: { dateInput: 'YYYY-MM-DD' }, display: { dateInput: 'YYYY-MM-DD' } } }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

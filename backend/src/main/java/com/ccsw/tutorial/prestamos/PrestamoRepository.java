@@ -21,8 +21,7 @@ public interface PrestamoRepository extends CrudRepository<Prestamo, Long>, JpaS
     @Override
     Page<Prestamo> findAll(Specification<Prestamo> spec, Pageable pageable);
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN TRUE ELSE FALSE END " + "FROM Prestamo p " + "WHERE p.game = :game "
-            + "AND ((p.fechaInicio BETWEEN :fechaInicio AND :fechaFin) OR (p.fechaFin BETWEEN :fechaInicio AND :fechaFin))")
+    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Prestamo p WHERE p.game = :game AND NOT (p.fechaFin < :fechaInicio OR p.fechaInicio > :fechaFin)")
     boolean existsActivePrestamosForGame(@Param("game") Game game, @Param("fechaInicio") Date fechaInicio,
             @Param("fechaFin") Date fechaFin);
 

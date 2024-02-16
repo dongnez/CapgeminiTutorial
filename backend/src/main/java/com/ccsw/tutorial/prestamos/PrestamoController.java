@@ -45,10 +45,7 @@ public class PrestamoController {
     @RequestMapping(path = "", method = RequestMethod.POST)
     public Page<PrestamoDto> findPageFilter(@RequestBody PrestamoSearchDto dto) {
 
-        // System.out.println("\n \n PRESATMO FILTER" + dto.getFilterParams() + "\n\n");
-
         Page<Prestamo> page = this.prestamoService.findPageFilter(dto);
-        // Page<Prestamo> page = this.prestamoService.findPage(dto);
 
         return new PageImpl<>(
                 page.getContent().stream().map(e -> mapper.map(e, PrestamoDto.class)).collect(Collectors.toList()),
